@@ -1,0 +1,2 @@
+import express from 'express'; import cors from 'cors'; import { apiRouter } from './routes/api.js';
+export function createApp(deps) { const app = express(); app.use(cors({ origin: deps.config.origin })); app.use(express.json({ limit: '64kb' })); app.use('/api', apiRouter(deps)); app.use((err, _q, s, _n) => { console.error(err); s.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Unexpected server error' } }) }); return app }

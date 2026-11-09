@@ -1,0 +1,1 @@
+import fs from 'node:fs'; import {config} from '../src/config.js'; if(fs.existsSync(config.dbPath)){fs.unlinkSync(config.dbPath);console.log('Database removed.')}else console.log('No database found.');

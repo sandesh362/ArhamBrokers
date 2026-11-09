@@ -1,0 +1,4 @@
+import dotenv from 'dotenv'; import path from 'node:path';
+dotenv.config({path:path.resolve(process.cwd(),'../.env')}); dotenv.config();
+const n=(key,def,min=0)=>{const v=Number(process.env[key]??def);if(!Number.isFinite(v)||v<min)throw new Error(`Invalid ${key}`);return v};
+export const config={port:n('SERVER_PORT',4000,1),dbPath:process.env.DATABASE_PATH||path.resolve('data/bse-trades.db'),mockUrl:process.env.MOCK_API_URL||'http://localhost:4001',pageSize:n('PULL_PAGE_SIZE',100,1),batchDelay:n('PULL_BATCH_DELAY_MS',0),requestTimeout:n('PULL_REQUEST_TIMEOUT_MS',15000,1),maxRetries:n('PULL_MAX_RETRIES',3),retryBase:n('PULL_RETRY_BASE_DELAY_MS',250),origin:process.env.ALLOWED_ORIGIN||'http://localhost:5173'}; if(config.requestTimeout>=30000)throw new Error('PULL_REQUEST_TIMEOUT_MS must be below 30000');

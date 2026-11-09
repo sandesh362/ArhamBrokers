@@ -1,0 +1,15 @@
+{
+  "name": "bse-trades-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "install:all": "npm install && npm --prefix mock-bse-api install && npm --prefix server install && npm --prefix client install",
+    "dev": "concurrently -n mock,server,client -c cyan,green,magenta \"npm --prefix mock-bse-api run dev\" \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "start": "concurrently -n mock,server,client -c cyan,green,magenta \"npm --prefix mock-bse-api start\" \"npm --prefix server start\" \"npm --prefix client run preview\"",
+    "test": "npm --prefix mock-bse-api test && npm --prefix server test && npm --prefix client test",
+    "build": "npm --prefix client run build",
+    "lint": "npm --prefix server run lint && npm --prefix client run lint",
+    "demo": "cross-env MOCK_TOTAL_DELAY_MS=1500 PULL_BATCH_DELAY_MS=0 npm run dev"
+  },
+  "devDependencies": {"concurrently": "^9.1.2", "cross-env": "^7.0.3"}
+}

@@ -1,0 +1,6 @@
+flowchart LR
+  Dashboard[React Dashboard] -->|REST: snapshot / start pull| Backend[Express Backend]
+  Backend <--> DB[(SQLite: trades + pull jobs)]
+  Backend --> Worker[Background Pull Worker]
+  Worker -->|short paginated HTTP requests| Mock[Mock BSE API]
+  Backend -->|WebSocket events after commit| Dashboard
